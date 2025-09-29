@@ -16,4 +16,4 @@ if __name__ == "__main__":
     print("Информация о системе:")
     for key, value in info.items():
         print(f"- {key}: {value}")
-git commit -m "start project-1"
+        git commit -m "start project-1"
