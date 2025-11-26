@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#"
+     xml:base="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:sqwrl="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl">
+     
+    <owl:Ontology rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск">
+        <rdfs:label>Онтология сценария выбора фильма в Кинопоиск</rdfs:label>
+        <rdfs:comment>Онтологическая модель пользовательского сценария выбора фильма в мобильном приложении Кинопоиск</rdfs:comment>
+    </owl:Ontology>
+
+    <!-- КЛАССЫ НА РУССКОМ -->
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Пользователь">
+        <rdfs:label>Пользователь</rdfs:label>
+        <rdfs:comment>Класс пользователей приложения Кинопоиск</rdfs:comment>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина">
+        <rdfs:label>Причина</rdfs:label>
+        <rdfs:comment>Причины использования сервиса или состояния пользователя</rdfs:comment>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг">
+        <rdfs:label>Шаг</rdfs:label>
+        <rdfs:comment>Шаг пользовательского сценария</rdfs:comment>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие">
+        <rdfs:label>Действие</rdfs:label>
+        <rdfs:comment>Техническое действие пользователя или системы</rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#вызывает"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Просмотр">
+        <rdfs:label>Просмотр</rdfs:label>
+        <rdfs:comment>Просмотр или появление интерфейсного элемента</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Нажатие">
+        <rdfs:label>Нажатие</rdfs:label>
+        <rdfs:comment>Нажатие на интерфейсный элемент</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Прокрутка">
+        <rdfs:label>Прокрутка</rdfs:label>
+        <rdfs:comment>Прокрутка содержимого экрана</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#ВводТекста">
+        <rdfs:label>Ввод текста</rdfs:label>
+        <rdfs:comment>Ввод текстовой информации</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс">
+        <rdfs:label>Интерфейс</rdfs:label>
+        <rdfs:comment>Элемент пользовательского интерфейса</rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#имеетСобытие"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка">
+        <rdfs:label>Кнопка</rdfs:label>
+        <rdfs:comment>Кнопка интерфейса</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран">
+        <rdfs:label>Экран</rdfs:label>
+        <rdfs:comment>Экран приложения</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Баннер">
+        <rdfs:label>Баннер</rdfs:label>
+        <rdfs:comment>Баннер или карточка контента</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#ПоисковаяСтрока">
+        <rdfs:label>Поисковая строка</rdfs:label>
+        <rdfs:comment>Элемент для ввода поискового запроса</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие">
+        <rdfs:label>Событие</rdfs:label>
+        <rdfs:comment>Событие логирования пользовательских действий</rdfs:comment>
+    </owl:Class>
+
+    <!-- СВОЙСТВА ОБЪЕКТОВ НА РУССКОМ -->
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#имеетСостояние">
+        <rdfs:label>имеет состояние</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Пользователь"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина"/>
+        <rdfs:comment>Пользователь имеет состояние/причину использования сервиса</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#являетсяПричинойДля">
+        <rdfs:label>является причиной для</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг"/>
+        <rdfs:comment>Причина обуславливает выполнение шага</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#предшествует">
+        <rdfs:label>предшествует</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг"/>
+        <rdfs:comment>Шаг предшествует другому шагу в сценарии</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#материализуетсяВ">
+        <rdfs:label>материализуется в</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+        <rdfs:comment>Шаг сценария материализуется в конкретное действие</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#предшествуетДействию">
+        <rdfs:label>предшествует действию</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+        <rdfs:comment>Действие предшествует другому действию</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#имеетЦелевоеДействиеДля">
+        <rdfs:label>имеет целевое действие для</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина"/>
+        <rdfs:comment>Шаг имеет целевое действие для удовлетворения причины</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#взаимодействуетС">
+        <rdfs:label>взаимодействует с</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+        <rdfs:comment>Действие предполагает взаимодействие с элементом интерфейса</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#являетсяЧастью">
+        <rdfs:label>является частью</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+        <rdfs:comment>Элемент интерфейса является частью другого элемента</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#вызывает">
+        <rdfs:label>вызывает</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+        <rdfs:comment>Действие вызывает событие логирования</rdfs:comment>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#имеетСобытие">
+        <rdfs:label>имеет событие</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+        <rdfs:comment>Элемент интерфейса имеет связанное событие</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- СВОЙСТВА ДАННЫХ НА РУССКОМ -->
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#название">
+        <rdfs:label>название</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Название элемента онтологии</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#кодовоеИмя">
+        <rdfs:label>кодовое имя</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Формальное название элемента интерфейса для использования в коде</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- ЭКЗЕМПЛЯРЫ НА РУССКОМ -->
+    <!-- Пользователь -->
+    <Пользователь rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Пользователь1">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Основной пользователь</название>
+    </Пользователь>
+
+    <!-- Причины -->
+    <Причина rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина_ПосмотретьФильм">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Хочу посмотреть фильм</название>
+    </Причина>
+
+    <!-- Шаги -->
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_ОткрытьПриложение">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Открыть приложение</название>
+    </Шаг>
+    
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_НайтиФильм">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Найти фильм</название>
+    </Шаг>
+    
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_ВыбратьФильм">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Выбрать фильм</название>
+    </Шаг>
+    
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_НачатьПросмотр">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Начать просмотр</название>
+    </Шаг>
+
+    <!-- Действия -->
+    <Нажатие rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ОткрытьПриложение">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Нажатие на иконку приложения</название>
+    </Нажатие>
+    
+    <ВводТекста rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Ввод_Поиск">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ввод поискового запроса</название>
+    </ВводТекста>
+    
+    <Нажатие rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ВыбратьФильм">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Выбор фильма из результатов</название>
+    </Нажатие>
+    
+    <Нажатие rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_Смотреть">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Нажатие кнопки просмотра</название>
+    </Нажатие>
+    
+    <Прокрутка rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Прокрутка_Результаты">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Прокрутка результатов поиска</название>
+    </Прокрутка>
+    
+    <Просмотр rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Просмотр_Детали">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Просмотр деталей фильма</название>
+    </Просмотр>
+
+    <!-- Интерфейсы -->
+    <Кнопка rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка_ИконкаПриложения">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Иконка приложения</название>
+        <кодовоеИмя rdf:datatype="http://www.w3.org/2001/XMLSchema#string">app_icon</кодовоеИмя>
+    </Кнопка>
+    
+    <ПоисковаяСтрока rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#ПоисковаяСтрока_Основная">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Поисковая строка</название>
+        <кодовоеИмя rdf:datatype="http://www.w3.org/2001/XMLSchema#string">search_bar</кодовоеИмя>
+    </ПоисковаяСтрока>
+    
+    <Экран rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_РезультатыПоиска">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Экран результатов поиска</название>
+        <кодовоеИмя rdf:datatype="http://www.w3.org/2001/XMLSchema#string">results_screen</кодовоеИмя>
+    </Экран>
+    
+    <Экран rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_ДеталиФильма">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Экран деталей фильма</название>
+        <кодовоеИмя rdf:datatype="http://www.w3.org/2001/XMLSchema#string">movie_details</кодовоеИмя>
+    </Экран>
+    
+    <Кнопка rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка_Смотреть">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Кнопка просмотра</название>
+        <кодовоеИмя rdf:datatype="http://www.w3.org/2001/XMLSchema#string">watch_button</кодовоеИмя>
+    </Кнопка>
+    
+    <Баннер rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Баннер_КарточкаФильма">
+        <название rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Карточка фильма</название>
+        <кодовоеИмя rdf:datatype="http://www.w3.org/2001/XMLSchema#string">movie_card</кодовоеИмя>
+    </Баннер>
+
+    <!-- СВЯЗИ МЕЖДУ ЭКЗЕМПЛЯРАМИ -->
+    <!-- Связи пользователя -->
+    <Пользователь rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Пользователь1">
+        <имеетСостояние rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина_ПосмотретьФильм"/>
+    </Пользователь>
+
+    <!-- Связи причин -->
+    <Причина rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина_ПосмотретьФильм">
+        <являетсяПричинойДля rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_ОткрытьПриложение"/>
+    </Причина>
+
+    <!-- Связи шагов -->
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_ОткрытьПриложение">
+        <предшествует rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_НайтиФильм"/>
+        <материализуетсяВ rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ОткрытьПриложение"/>
+    </Шаг>
+    
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_НайтиФильм">
+        <предшествует rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_ВыбратьФильм"/>
+        <материализуетсяВ rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Ввод_Поиск"/>
+    </Шаг>
+    
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_ВыбратьФильм">
+        <предшествует rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_НачатьПросмотр"/>
+        <материализуетсяВ rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ВыбратьФильм"/>
+    </Шаг>
+    
+    <Шаг rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Шаг_НачатьПросмотр">
+        <материализуетсяВ rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_Смотреть"/>
+        <имеетЦелевоеДействиеДля rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Причина_ПосмотретьФильм"/>
+    </Шаг>
+
+    <!-- Связи действий -->
+    <Нажатие rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ОткрытьПриложение">
+        <предшествуетДействию rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Ввод_Поиск"/>
+        <взаимодействуетС rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка_ИконкаПриложения"/>
+    </Нажатие>
+    
+    <ВводТекста rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Ввод_Поиск">
+        <предшествуетДействию rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Прокрутка_Результаты"/>
+        <взаимодействуетС rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#ПоисковаяСтрока_Основная"/>
+    </ВводТекста>
+    
+    <Прокрутка rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Прокрутка_Результаты">
+        <предшествуетДействию rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ВыбратьФильм"/>
+        <взаимодействуетС rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_РезультатыПоиска"/>
+    </Прокрутка>
+    
+    <Нажатие rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_ВыбратьФильм">
+        <предшествуетДействию rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Просмотр_Детали"/>
+        <взаимодействуетС rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Баннер_КарточкаФильма"/>
+    </Нажатие>
+    
+    <Просмотр rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Просмотр_Детали">
+        <предшествуетДействию rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_Смотреть"/>
+        <взаимодействуетС rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_ДеталиФильма"/>
+    </Просмотр>
+    
+    <Нажатие rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие_Нажатие_Смотреть">
+        <взаимодействуетС rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка_Смотреть"/>
+    </Нажатие>
+
+    <!-- Связи интерфейсов -->
+    <Кнопка rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка_ИконкаПриложения">
+        <являетсяЧастью rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_РезультатыПоиска"/>
+    </Кнопка>
+    
+    <ПоисковаяСтрока rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#ПоисковаяСтрока_Основная">
+        <являетсяЧастью rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_РезультатыПоиска"/>
+    </ПоисковаяСтрока>
+    
+    <Баннер rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Баннер_КарточкаФильма">
+        <являетсяЧастью rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_РезультатыПоиска"/>
+    </Баннер>
+    
+    <Кнопка rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Кнопка_Смотреть">
+        <являетсяЧастью rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Экран_ДеталиФильма"/>
+    </Кнопка>
+
+    <!-- АКСИОМЫ И ОГРАНИЧЕНИЯ -->
+    <!-- Аксиома: Каждое действие должно вызывать хотя бы одно событие -->
+    <owl:Axiom>
+        <owl:annotatedTarget>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#вызывает"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+            </owl:Restriction>
+        </owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Действие"/>
+        <rdfs:comment>Каждое действие должно вызывать хотя бы одно событие</rdfs:comment>
+    </owl:Axiom>
+
+    <!-- Аксиома: Каждый элемент интерфейса должен иметь связанное событие -->
+    <owl:Axiom>
+        <owl:annotatedTarget>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#имеетСобытие"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+            </owl:Restriction>
+        </owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Интерфейс"/>
+        <rdfs:comment>Каждый элемент интерфейса должен иметь связанное событие</rdfs:comment>
+    </owl:Axiom>
+
+    <!-- SWRL ПРАВИЛА НА РУССКОМ -->
+    <swrl:Imp rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Правило1">
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#Событие"/>
+                        <swrl:argument1>
+                            <swrl:Variable rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#событие"/>
+                        </swrl:argument1>
+                    </swrl:ClassAtom>
+                </rdf:first>
+            </swrl:AtomList>
+        </swrl:head>
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#кодовоеИмя"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#интерфейс"/>
+                                <swrl:argument2>
+                                    <swrl:Variable rdf:about="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#код"/>
+                                </swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                    </swrl:AtomList>
+                </rdf:rest>
+                <rdf:first>
+                    <swrl:IndividualPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#взаимодействуетС"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#действие"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/kinopoisk/ontologies/2024/онтология-кинопоиск#интерфейс"/>
+                    </swrl:IndividualPropertyAtom>
+                </rdf:first>
+            </swrl:AtomList>
+        </swrl:body>
+        <rdfs:comment>Правило создания событий: если действие взаимодействует с интерфейсом, создается событие</rdfs:comment>
+    </swrl:Imp>
+</rdf:RDF>
